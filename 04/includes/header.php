@@ -19,7 +19,7 @@
             <img
                 src="assets/bitumi.png"
                 alt="Bake it till you make it bakery"
-                class="logo">
+                class="logo img-fluid">
         </h1>
         <nav> 
             <a href="/"> Home </a>

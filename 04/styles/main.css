@@ -148,3 +148,9 @@ nav a:focus {
 .text-danger {
     color: #dc3545 !important;
 }
+
+.logo{
+    max-width: 220px;
+    display: block;
+    margin: 0 auto;
+}
