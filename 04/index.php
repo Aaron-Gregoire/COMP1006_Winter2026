@@ -41,3 +41,8 @@
 
 <?php require "includes/footer.php"; ?> <!-- requires the footer.php file -->
 
+<!-- i know its not in the learning objectives but i really disliked implementing bootstrap i know it saved a lot of time writing css stuff
+ but overall it was very not nice to do in my opinion all the classes that work with boostrap make the code look messy and it was hard 
+ to keep track of. other then that nothing was really difficult because the code you posted on github was a very good refernece of what
+ to do with minor tweaks and structuring anyway im done rambling overall it was a cool assignment and other the using bootstrap it wasnt
+ very difficult! -->
