@@ -1,0 +1,150 @@
+/* ============================
+   Simple Reset / Base Styles
+   ============================ */
+
+/* Box sizing reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Remove default margins */
+body,
+h1,
+h2,
+h3,
+p,
+fieldset,
+legend {
+    margin: 0;
+}
+
+/* Base body styles */
+body {
+    line-height: 1.5;
+    color: #2F1E0F;
+    background-color: #FDF8F3;
+}
+
+/* ============================
+   Layout
+   ============================ */
+
+main,
+header nav, 
+footer {
+    max-width: 80%;
+    margin: 2rem auto;
+    padding: 1.5rem;
+}
+
+/* ============================
+   Logo / Heading
+   ============================ */
+
+h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+h1 img {
+    max-width: 220px;
+    height: auto;
+}
+
+/* ============================
+   Form Elements
+   ============================ */
+
+fieldset {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+legend {
+    padding: 0 0.5rem;
+    font-weight: 600;
+}
+
+label {
+    font-weight: 500;
+}
+
+input,
+select,
+textarea,
+button {
+    display:block;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 0.4rem;
+    margin-top: 0.25rem;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* ============================
+   Navigation
+   ============================ */
+
+nav {
+    margin-bottom: 1.5rem;
+    background-color: #8B4513;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    gap: 1.25rem;
+    justify-content: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: #F5F0E9;
+    font-weight: 500;
+    padding: 0.25rem 0;
+}
+
+nav a:hover,
+nav a:focus {
+    text-decoration: underline;
+}
+
+/* ============================
+  Footer
+   ============================ */
+
+   footer {
+    background-color: #8B4513; 
+    color: #F5F0E9; 
+   }
+
+/*Bootstrap stuff */
+
+.btn-primary {
+    background-color: #8B4513; 
+    border-color: #8B4513;
+}
+
+.btn-primary:hover {
+    background-color: #A0522D;
+    border-color: #A0522D;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
