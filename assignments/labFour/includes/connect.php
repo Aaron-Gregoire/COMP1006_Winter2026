@@ -3,6 +3,7 @@
 $host = '127.0.0.1';
 $dbname = 'subscribers';
 $username = 'Aaron';    
+$password = '12345';
 
 try {
     $pdo = new PDO(
