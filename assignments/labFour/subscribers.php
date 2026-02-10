@@ -44,4 +44,3 @@ $subscribers = $stmt->fetchAll();
   </p>
 </main>
 
-<?php require "includes/footer.php"; ?>
