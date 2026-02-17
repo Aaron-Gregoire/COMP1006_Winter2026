@@ -1,7 +1,7 @@
 <?php
 //main page of the time tracker
 //takes all tasks from the db and shows them in a table also allows users to edit or delete tasks from the page
-require_once 'timeTracker/connect.php';
+require_once 'includes/connect.php';
 
 $pageTitle = 'All Tasks';
 

@@ -1,6 +1,6 @@
 <?php
 //only takes post requests, deletes task from db using id, goes back to index
-require_once 'config/connect.php';
+require_once 'includes/connect.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

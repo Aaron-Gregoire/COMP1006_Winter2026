@@ -1,6 +1,6 @@
 <?php
 // pre fills form, validates server side, updates the db, goes back to index
-require_once 'config/connect.php';
+require_once 'includes/connect.php';
 
 $pageTitle = "Edit Task";
 

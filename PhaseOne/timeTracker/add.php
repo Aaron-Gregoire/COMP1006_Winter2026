@@ -1,6 +1,6 @@
 <?php
 // shows form, validates data, saves new task to the db, goes back to index
-require_once 'config/database.php';
+require_once 'includes/connect.php';
 
 $pageTitle = "Add Task";
 
