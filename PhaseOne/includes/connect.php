@@ -1,7 +1,7 @@
 <?php
 
 $host     = 'localhost';         
-$dbname   = 'time_tracker';       
+$dbname   = 'tasks';       
 $username = 'root';              
 $password = '';                  
 
