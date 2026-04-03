@@ -38,14 +38,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $sql = "INSERT INTO tasks (task_name, category, priority, due_date, time_spent)
                     VALUES (:task_name, :category, :priority, :due_date, :time_spent)";
+
             $stmt = $pdo->prepare($sql);
-            $stmt->execute([
-                ':task_name'  => $formData['task_name'],
-                ':category'   => $formData['category'],
-                ':priority'   => $formData['priority'],
-                ':due_date'   => $formData['due_date'],
-                ':time_spent' => (float)$formData['time_spent']
-            ]);
+
+            $stmt->bindParam(':task_name',  $formData['task_name']);
+            $stmt->bindParam(':category',   $formData['category']);
+            $stmt->bindParam(':priority',   $formData['priority']);
+            $stmt->bindParam(':due_date',   $formData['due_date']);
+            $stmt->bindParam(':time_spent', $formData['time_spent']);
+
+            $stmt->execute();
 
             //back to main if sucess
             header("Location: index.php");

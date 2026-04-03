@@ -4,7 +4,6 @@ require_once 'includes/connect.php';
 
 $pageTitle = "Edit Task";
 
-
 $errors   = [];
 $formData = [];
 
@@ -55,14 +54,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     WHERE id = :id";
 
             $stmt = $pdo->prepare($sql);
-            $stmt->execute([
-                ':task_name'  => $formData['task_name'],
-                ':category'   => $formData['category'],
-                ':priority'   => $formData['priority'],
-                ':due_date'   => $formData['due_date'],
-                ':time_spent' => (float)$formData['time_spent'],
-                ':id'         => $taskId
-            ]);
+
+            $stmt->bindParam(':task_name',  $formData['task_name']);
+            $stmt->bindParam(':category',   $formData['category']);
+            $stmt->bindParam(':priority',   $formData['priority']);
+            $stmt->bindParam(':due_date',   $formData['due_date']);
+            $stmt->bindParam(':time_spent', $formData['time_spent']);
+            $stmt->bindParam(':id',         $taskId);
+
+            $stmt->execute();
 
             // back to the list
             header("Location: index.php");
@@ -72,12 +72,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors['db'] = "Database error occurred.";
         }
     }
-} 
-
-else {
+} else {
     //load an existing task
-    $stmt = $pdo->prepare("SELECT * FROM tasks WHERE id = ?");
-    $stmt->execute([$taskId]);
+    $sql = "SELECT * FROM tasks WHERE id = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id', $taskId);
+    $stmt->execute();
     $task = $stmt->fetch();
 
     // non existing task

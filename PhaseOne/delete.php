@@ -2,7 +2,6 @@
 //only takes post requests, deletes task from db using id, goes back to index
 require_once 'includes/connect.php';
 
-
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: index.php");
     exit;
@@ -19,8 +18,11 @@ if ($taskId <= 0) {
 
 // try to delete task
 try {
-    $stmt = $pdo->prepare("DELETE FROM tasks WHERE id = ?");
-    $stmt->execute([$taskId]);
+    $sql = "DELETE FROM tasks WHERE id = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id', $taskId);
+    $stmt->execute();
+
     header("Location: index.php");
     exit;
 } catch (PDOException $e) {

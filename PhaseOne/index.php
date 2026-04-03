@@ -7,7 +7,8 @@ $pageTitle = 'All Tasks';
 
 //get all tasks from the db by date
 $sql = "SELECT * FROM tasks ORDER BY due_date ASC";
-$stmt = $pdo->query($sql);
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
 $tasks = $stmt->fetchAll();
 
 //calcualte the numbers for the stat cards
@@ -144,6 +145,3 @@ include 'includes/header.php';
 </div>
 
 <?php include 'includes/footer.php'; ?>
-
-
-
