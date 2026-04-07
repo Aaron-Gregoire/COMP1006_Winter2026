@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $confirmPassword = $_POST['confirm_password'] ?? '';
     $recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
 
-    $secretKey = '6LfUEKwsAAAAAPZs32LOsBAKjr7YecLs7USL6ABs';
+    $secretKey = '6Le6I6wsAAAAAF_L52SpdvPZyr8cDN307UwvuWHu';
     $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$recaptchaResponse");
     $recaptchaData = json_decode($verify);
 
@@ -88,7 +88,7 @@ include 'includes/header.php';
                         </div>
 
                         <div class="mb-3">
-                            <div class="g-recaptcha" data-sitekey="6LfUEKwsAAAAAHenkmCO40s-Jzy9GfB2sIGnaJJB"></div>
+                            <div class="g-recaptcha" data-sitekey="6Le6I6wsAAAAAP2sJ36LnBJns_MXkAqQU-_d36rJ"></div>
                         </div>
 
                         <button type="submit" class="btn btn-success">register</button>
