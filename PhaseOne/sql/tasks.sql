@@ -1,10 +1,21 @@
-CREATE TABLE tasks (
-    id          INT AUTO_INCREMENT PRIMARY KEY, 
-    task_name   VARCHAR(255)  NOT NULL, -- name of task
-    category    VARCHAR(100)  NOT NULL, -- school, work, chores just any type of task
-    priority    VARCHAR(10)   NOT NULL, -- high medium or low
-    due_date    DATE          NOT NULL, -- self explanitory
-    time_spent  DECIMAL(5,2)  NOT NULL, -- hours spent on task
-    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- it auto sets the time created when a task is inserted into the db
+CREATE DATABASE IF NOT EXISTS phase2_app;
+USE phase2_app;
 
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+CREATE TABLE tasks (
+    id INT AUTO_INCREMENT PRIMARY KEY, 
+    task_name VARCHAR(255) NOT NULL,
+    category VARCHAR(100) NOT NULL,
+    priority VARCHAR(10) NOT NULL,
+    due_date DATE NOT NULL,
+    time_spent DECIMAL(5,2) NOT NULL,
+    user_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
