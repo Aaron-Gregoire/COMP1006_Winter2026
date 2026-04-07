@@ -1,6 +1,6 @@
 <?php
 $host = "localhost";
-$db = "tasks";
+$db = "phase2_app";
 $user = "root";
 $password = "";
 
