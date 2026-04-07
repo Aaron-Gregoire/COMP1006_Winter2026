@@ -43,6 +43,10 @@ if(!isset($pageTitle)){
                 <li class="nav-item">
                     <a class="nav-link" href="add.php">+ Add Task</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="logout.php">Logout (<?= htmlspecialchars($userEmail 
+                    ?? 'User') ?>)</a>
+                </li>
             </ul>
         </div>
     </div>
