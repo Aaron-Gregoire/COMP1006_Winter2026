@@ -80,3 +80,20 @@ body {
     font-size: 0.875rem;
     color: #6c757d;
 }
+/*phase 2 css */
+.card {
+    border: none;
+    box-shadow: 0 0.125rem rgba(0,0,0,0.075);
+}
+
+.btn-outline-info {
+    font-size: 0.875rem;
+}
+
+input[type="file"] {
+    padding: 0.5rem 0.75rem;
+}
+
+.table-danger td {
+    font-weight: 500;
+}

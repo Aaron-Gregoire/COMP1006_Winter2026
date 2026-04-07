@@ -64,7 +64,7 @@ include 'includes/header.php';
 
                     <!-- recaptcha -->
                     <div class="mb-3">
-                        <div class="g-recaptcha" data-sitekey=6LfUEKwsAAAAAHenkmCO40s-Jzy9GfB2sIGnaJJB></div> 
+                        <div class="g-recaptcha" data-sitekey="6LfUEKwsAAAAAHenkmCO40s-Jzy9GfB2sIGnaJJB"></div> 
                     </div>
 
                     <button type="submit" class="btn btn-primary">Login</button>
