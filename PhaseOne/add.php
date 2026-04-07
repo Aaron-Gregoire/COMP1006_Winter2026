@@ -38,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (!empty($_FILES['attachment']['name']) && empty($errors)) {
     $file = $_FILES['attachment'];
     $maxSize = 5 * 1024 * 1024; 
-
     $allowedExt = ['jpg', 'jpeg', 'png', 'gif', 'pdf'];
     $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 

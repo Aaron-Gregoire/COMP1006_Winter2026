@@ -1,5 +1,6 @@
 <?php
 // pre fills form, validates server side, updates the db, goes back to index
+require_once 'includes/auth.php';
 require_once 'includes/connect.php';
 
 $pageTitle = "Edit Task";
@@ -42,6 +43,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['time_spent'] = 'Time spent must be a positive number.';
     }
 
+    //file upload same as add
+    $attachmentPath = null; 
+    if (!empty($_FILES['attachment']['name']) && empty($errors)) {
+        $file = $_FILES['attachment'];
+        $maxSize = 5 * 1024 * 1024; 
+        $allowedExt = ['jpg', 'jpeg', 'png', 'gif', 'pdf'];
+        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+
+        if ($file['error'] === 0 && $file['size'] <= $maxSize && in_array($ext, $allowedExt)) {
+            
+            $newName = 'task_' . uniqid() . '.' . $ext;
+            $uploadDir = 'uploads/';
+
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+
+            $targetPath = $uploadDir . $newName;
+
+            if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+                $attachmentPath = $targetPath;
+            } else {
+                $errors['attachment'] = "failed to save file";
+            }
+        } else {
+            $errors['attachment'] = "only jpg, png, gif or pdf files under 5mb are allowed";
+        }
+    }
+
     // if it has no errors update the db
     if (empty($errors)) {
         try {
@@ -50,8 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         category   = :category,
                         priority   = :priority,
                         due_date   = :due_date,
-                        time_spent = :time_spent
-                    WHERE id = :id";
+                        time_spent = :time_spent,
+                        attachment = COALESCE(:attachment, attachment)  
+                    WHERE id = :id AND user_id = :user_id";
 
             $stmt = $pdo->prepare($sql);
 
@@ -60,7 +91,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bindParam(':priority',   $formData['priority']);
             $stmt->bindParam(':due_date',   $formData['due_date']);
             $stmt->bindParam(':time_spent', $formData['time_spent']);
+            $stmt->bindParam(':attachment', $attachmentPath);
             $stmt->bindParam(':id',         $taskId);
+            $stmt->bindParam(':user_id', $_SESSION['user_id']);
 
             $stmt->execute();
 
@@ -74,9 +107,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     //load an existing task
-    $sql = "SELECT * FROM tasks WHERE id = :id";
+    $sql = "SELECT * FROM tasks WHERE id = :id AND user_id = :user_id";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':id', $taskId);
+    $stmt->bindParam(':user_id', $_SESSION['user_id']);
     $stmt->execute();
     $task = $stmt->fetch();
 
@@ -167,6 +201,27 @@ include 'includes/header.php';
                             <?php } ?>
                         </div>
                     </div>
+
+                    <!-- file upload field  -->
+                    <div class="mb-3">
+                        <label for="attachment" class="form-label">New Attachment (optional)</label>
+                        <input type="file" class="form-control" id="attachment" name="attachment" 
+                               accept=".jpg,.jpeg,.png,.gif,.pdf">
+                        <small class="form-text">Max 5MB. Leave blank to keep current file.</small>
+                        <?php if(isset($errors['attachment'])) { ?>
+                            <div class="invalid-feedback d-block"><?php echo $errors['attachment']; ?></div>
+                        <?php } ?>
+                    </div>
+
+                    <!-- show current attachment if exists -->
+                    <?php if (!empty($formData['attachment'])): ?>
+                    <div class="mb-3">
+                        <p class="form-text">
+                            Current file: 
+                            <a href="<?php echo htmlspecialchars($formData['attachment']); ?>" target="_blank">View Current Attachment</a>
+                        </p>
+                    </div>
+                    <?php endif; ?>
 
                     <!-- save and cancel buttons -->
                     <div class="d-flex gap-2 mt-4">
