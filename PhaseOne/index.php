@@ -1,13 +1,15 @@
 <?php
 //main page of the time tracker
 //takes all tasks from the db and shows them in a table also allows users to edit or delete tasks from the page
+require_once 'includes/auth.php';
 require_once 'includes/connect.php';
 
 $pageTitle = 'All Tasks';
 
-//get all tasks from the db by date
-$sql = "SELECT * FROM tasks ORDER BY due_date ASC";
+//only show tasks belonging to the logged in user
+$sql = "SELECT * FROM tasks WHERE user_id = :user_id ORDER BY due_date ASC";
 $stmt = $pdo->prepare($sql);
+$stmt = bindParam(':user_id', $_SESSION['user_id']);
 $stmt->execute();
 $tasks = $stmt->fetchAll();
 
