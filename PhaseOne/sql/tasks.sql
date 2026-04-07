@@ -6,6 +6,7 @@ CREATE TABLE tasks (
     due_date DATE NOT NULL,
     time_spent DECIMAL(5,2) NOT NULL,
     user_id INT,
+    attachment VARCHAR(255) DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
