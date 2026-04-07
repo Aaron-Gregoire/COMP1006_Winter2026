@@ -8,6 +8,7 @@ $pageTitle = "Add Task";
 
 $errors   = [];
 $formData = [];
+$attachmentPath = null;
 
 //chack if submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -108,7 +109,7 @@ include 'includes/header.php';
                 <?php } ?>
 
                 <!-- running the js and php validation on the form-->
-                <form action="add.php" method="POST" onsubmit="return validateTaskForm()" novalidate>
+                 <form action="add.php" method="POST" enctype="multipart/form-data" onsubmit="return validateTaskForm()" novalidate>
 
                     <div class="mb-3">
                         <label for="task_name" class="form-label">Task Name <span class="text-danger">*</span></label>
@@ -159,6 +160,15 @@ include 'includes/header.php';
                                 <div class="invalid-feedback"><?php echo $errors['time_spent']; ?></div>
                             <?php } ?>
                         </div>
+                    </div>
+                     <div class="mb-3">
+                        <label for="attachment" class="form-label">Attachment (optional)</label>
+                        <input type="file" class="form-control" id="attachment" name="attachment" 
+                               accept=".jpg,.jpeg,.png,.gif,.pdf">
+                        <small class="form-text">Max 5MB.</small>
+                        <?php if(isset($errors['attachment'])) { ?>
+                            <div class="invalid-feedback d-block"><?php echo $errors['attachment']; ?></div>
+                        <?php } ?>
                     </div>
                     <!--buttons-->
                     <div class="d-flex gap-2 mt-4">
