@@ -9,7 +9,7 @@ $pageTitle = 'All Tasks';
 //only show tasks belonging to the logged in user
 $sql = "SELECT * FROM tasks WHERE user_id = :user_id ORDER BY due_date ASC";
 $stmt = $pdo->prepare($sql);
-$stmt = bindParam(':user_id', $_SESSION['user_id']);
+$stmt -> bindParam(':user_id', $_SESSION['user_id']);
 $stmt->execute();
 $tasks = $stmt->fetchAll();
 

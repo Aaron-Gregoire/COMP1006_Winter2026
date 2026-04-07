@@ -65,8 +65,8 @@ if (!empty($_FILES['attachment']['name']) && empty($errors)) {
     //save to db
     if (empty($errors)) {
         try {
-            $sql = "INSERT INTO tasks (task_name, category, priority, due_date, time_spent)
-                    VALUES (:task_name, :category, :priority, :due_date, :time_spent)";
+            $sql = "INSERT INTO tasks (task_name, category, priority, due_date, time_spent, user_id, attachment)
+                        VALUES (:task_name, :category, :priority, :due_date, :time_spent, :user_id, :attachment)";
 
             $stmt = $pdo->prepare($sql);
 
