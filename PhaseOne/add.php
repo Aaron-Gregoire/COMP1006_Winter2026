@@ -1,6 +1,8 @@
 <?php
 // shows form, validates data, saves new task to the db, goes back to index
+require_once 'includes/auth.php';
 require_once 'includes/connect.php';
+
 
 $pageTitle = "Add Task";
 
@@ -32,6 +34,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($formData['time_spent'] === '' || !is_numeric($formData['time_spent']) || (float)$formData['time_spent'] < 0) {
         $errors['time_spent'] = 'Time spent must be a positive number.';
     }
+//file uploading
+if (!empty($_FILES['attachment']['name']) && empty($errors)) {
+    $file = $_FILES['attachment'];
+    $maxSize = 5 * 1024 * 1024; 
+
+    $allowedExt = ['jpg', 'jpeg', 'png', 'gif', 'pdf'];
+    $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+
+    if ($file['error'] === 0 && $file['size'] <= $maxSize && in_array($ext, $allowedExt)) {
+        
+        $newName = 'task_' . uniqid() . '.' . $ext;
+        $uploadDir = 'uploads/';
+
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+
+        $targetPath = $uploadDir . $newName;
+
+        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+            $attachmentPath = $targetPath;
+        } else {
+            $errors['attachment'] = "failed to save file";
+        }
+    } else {
+        $errors['attachment'] = "only jpg, png, gif or pdf files under 5mb are allowed";
+    }
+}
 
     //save to db
     if (empty($errors)) {
@@ -46,6 +76,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bindParam(':priority',   $formData['priority']);
             $stmt->bindParam(':due_date',   $formData['due_date']);
             $stmt->bindParam(':time_spent', $formData['time_spent']);
+            $stmt->bindParam(':user_id',    $_SESSION['user_id']);
+            $stmt->bindParam(':attachment', $attachmentPath);
+
 
             $stmt->execute();
 
