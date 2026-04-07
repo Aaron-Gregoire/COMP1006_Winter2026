@@ -43,6 +43,10 @@ if(!isset($pageTitle)){
                 <li class="nav-item">
                     <a class="nav-link" href="add.php">+ Add Task</a>
                 </li>
+                <!-- profile nav -->
+                <li class="nav-item">
+                    <a class="nav-link" href="profile.php">Profile</a>
+                </li>
                 <!-- phase 2 change added logout link with email -->
                 <li class="nav-item">
                     <a class="nav-link" href="logout.php">Logout (<?= htmlspecialchars($userEmail 
